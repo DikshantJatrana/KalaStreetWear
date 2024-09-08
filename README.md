@@ -2,7 +2,7 @@ Here's a description for your GitHub repository named **KalaStreet**:
 
 ---
 
-## **KalaStreet** 🎨👕  
+## **KalaStreet**  
 **A Modern and Playful Unisex Clothing Brand**  
 
 **Welcome to KalaStreet!** This repository is dedicated to the development of **KalaStreet**, a unique unisex clothing brand blending the artistry of handmade designs with the vibrant, edgy spirit of streetwear. Our brand caters to young adults aged 16-29 who crave modern, casual fashion that stands out with a global appeal and a touch of cultural heritage.
