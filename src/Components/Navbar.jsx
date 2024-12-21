@@ -24,9 +24,9 @@ function Navbar() {
   return (
     <>
       <div className="w-full px-4 py-8">
-        <div className="w-full h-[67px] md:h-20 rounded-xl bg-custom-gradient p-1">
+        <div className="w-full h-[63px] md:h-20 rounded-xl bg-custom-gradient p-1">
           <div className="w-full h-[100%] rounded-lg bg-white px-2 md:px-6 flex items-center justify-between">
-            <div className="h-[90%] aspect-video flex items-center justify-center">
+            <div className="h-[95%] aspect-video flex items-center justify-center">
               <img src="/Img/NewLogo.png" alt="Logo" className="" />
             </div>
             <ul className="md:flex font-tanker hidden md:items-center md:text-[1.7rem]">

@@ -12,3 +12,26 @@ body,
 #root {
   height: 100%;
 }
+
+.polygon1 {
+  clip-path: polygon(13% 2%, 92% 5%, 86% 97%, 1% 98%);
+}
+.triangle1 {
+  clip-path: polygon(11% 0, 0 96%, 100% 39%);
+}
+.triangle2 {
+  clip-path: polygon(13% 20%, 70% 100%, 100% 0);
+}
+.triangle3 {
+  clip-path: polygon(52% 0, 37% 100%, 80% 99%);
+}
+.triangle4 {
+  clip-path: polygon(0 17%, 37% 100%, 100% 51%);
+}
+.triangle5 {
+  clip-path: polygon(13% 6%, 37% 100%, 100% 12%);
+}
+
+.special {
+  -webkit-text-stroke: 4px #ff48b0;
+}
