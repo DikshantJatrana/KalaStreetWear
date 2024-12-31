@@ -8,6 +8,14 @@ import ProductCatlog from "./Pages/ProductCatlog";
 import ProductDetail from "./Pages/ProductDetail";
 import Cart from "./Pages/Cart";
 import Address from "./Pages/Address";
+import Dashboard from "./Pages/Dashboard";
+import ProductListing from "./Pages/ProductListing";
+import DashboardProduct from "./Pages/DashboardProduct";
+import UserProfile from "./Pages/UserProfile";
+import Loading from "./Components/Loading";
+import AdminRoute from "./Components/AdminRoute";
+import OrderSummary from "./Pages/OrderSummary";
+import AllOrder from "./Pages/AllOrder";
 
 function App() {
   return (
@@ -36,10 +44,19 @@ function App() {
           }
         />
         <Route path="/shop" element={<ProductCatlog />} />
-        <Route path="/details" element={<ProductDetail />} />
+        <Route path="/shop/details/:productId" element={<ProductDetail />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/loading" element={<Loading />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/address" element={<Address />} />
-        <Route path="/dashboard" element={<h1>Dashboard</h1>} />
+        <Route path="/order/:orderId" element={<OrderSummary />} />
+        {/*protected routed on for amin*/}
+        <Route path="admin" element={<AdminRoute />}>
+          <Route path="add-product" element={<ProductListing />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="all-products" element={<DashboardProduct />} />
+          <Route path="orders" element={<AllOrder />} />
+        </Route>
       </Routes>
     </MyContextProvider>
   );

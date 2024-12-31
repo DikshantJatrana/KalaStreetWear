@@ -1,15 +1,36 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-function Card1() {
+function Card1({
+  productName,
+  productImage,
+  productPrice,
+  productDiscount,
+  productId,
+}) {
+  const navigate = useNavigate();
   return (
-    <div className="bg-white w-full h-[37vh] rounded-xl md:h-[51vh] font-tanker px-2 pt-2 pb-1 items-center">
-      <img src="/Img/hot1.webp" alt="photo" className="rounded-lg mb-1" />
-      <h1 className="text-sm md:text-xl">BASIC OLIVE Heavyweight T-shirt</h1>
-      <div className="flex items-center">
-        <p className="text-base mr-2 md:text-lg">$ 749.00</p>
-        <p className="text-sm md:text-base line-through text-primaryGrayLight">
-          $ 899.00
-        </p>
+    <div
+      onClick={(e) => navigate(`/shop/details/${productId}`)}
+      className="bg-white w-full rounded-xl h-full flex cursor-pointer flex-col items-center py-2"
+    >
+      <div className="w-[95%] h-[85%]">
+        <img
+          src={productImage}
+          alt={productName}
+          className="rounded-lg w-full h-full"
+        />
+      </div>
+      <div className="w-[92%]">
+        <h1 className="text-sm w-full truncate overflow-hidden whitespace-nowrap md:text-xl">
+          {productName}
+        </h1>
+        <div className="flex items-center">
+          <p className="text-base mr-2 md:text-lg">₹{productPrice}</p>
+          <p className="text-sm md:text-base line-through text-primaryGrayLight">
+            ₹{productDiscount}
+          </p>
+        </div>
       </div>
     </div>
   );

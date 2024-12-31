@@ -1,9 +1,58 @@
-import React from "react";
-import { FaUser } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
 import { MdEmail } from "react-icons/md";
 import { TbPasswordFingerprint } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
+import { useSupabaseContext } from "../SupaBase/Supabase";
 
 function SignUp({ title, opps, sentence }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const { fetchUserData, signUpUser, loginUser } = useSupabaseContext();
+
+  const Navigate = useNavigate();
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    const result = await signUpUser(email, password);
+    console.log(result);
+    Navigate("/");
+  };
+  const handleLogIn = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await loginUser(email, password);
+      console.log("Login Successful:", result);
+
+      if (!result || !result.user) {
+        setError(true);
+        Navigate("/Log-in");
+        return;
+      }
+
+      const userValue = await fetchUserData(result.user.id);
+      console.log("User Data:", userValue);
+
+      if (!userValue || !userValue.role) {
+        console.error("Failed to fetch user role");
+        setError(true);
+        Navigate("/Log-in");
+        return;
+      }
+
+      if (userValue.role === "Admin") {
+        Navigate("/admin/dashboard");
+      } else {
+        setError(false);
+        Navigate("/");
+      }
+    } catch (err) {
+      console.error("Unexpected error in handleLogIn:", err);
+      setError(true);
+      Navigate("/Log-in");
+    }
+  };
+
   return (
     <div className="w-full h-screen bg-custom-gradient">
       <div className="w-full h-screen bg-white/80 flex items-center justify-center">
@@ -32,21 +81,14 @@ function SignUp({ title, opps, sentence }) {
               <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
                 {title}
               </h2>
-              <form>
-                {title === "Sign Up" ? (
-                  <div className="mb-4">
-                    <label className="block text-gray-600 font-medium mb-2">
-                      Username
-                    </label>
-                    <div className="relative">
-                      <FaUser className="absolute top-3 left-3 text-gray-400" />
-                      <input
-                        type="text"
-                        placeholder="Enter your username"
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primaryPink"
-                      />
-                    </div>
-                  </div>
+              <form
+                onSubmit={title === "Sign Up" ? handleSignUp : handleLogIn}
+                className="mt-[20%]"
+              >
+                {error ? (
+                  <p className="text-red-600 text-center">
+                    Invalid Email or Password
+                  </p>
                 ) : (
                   <></>
                 )}
@@ -57,6 +99,10 @@ function SignUp({ title, opps, sentence }) {
                   <div className="relative">
                     <MdEmail className="absolute top-3 left-3 text-gray-400" />
                     <input
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
+                      value={email}
                       type="email"
                       placeholder="Enter your email"
                       className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primaryBlue"
@@ -70,6 +116,10 @@ function SignUp({ title, opps, sentence }) {
                   <div className="relative">
                     <TbPasswordFingerprint className="absolute top-3 left-3 text-gray-400" />
                     <input
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                      value={password}
                       type="password"
                       placeholder="Enter your password"
                       className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primaryYellow"
@@ -86,7 +136,7 @@ function SignUp({ title, opps, sentence }) {
               <p className="mt-6 text-center text-primaryGrayDark">
                 {sentence}{" "}
                 <a
-                  href="/login"
+                  href={title === "Sign Up" ? "/Log-in" : "/sign-up"}
                   className="text-primaryPink hover:text-primaryBlue font-medium"
                 >
                   {opps}
