@@ -16,6 +16,7 @@ import Loading from "./Components/Loading";
 import AdminRoute from "./Components/AdminRoute";
 import OrderSummary from "./Pages/OrderSummary";
 import AllOrder from "./Pages/AllOrder";
+import UserRouter from "./Components/UserRouter";
 
 function App() {
   return (
@@ -44,12 +45,48 @@ function App() {
           }
         />
         <Route path="/shop" element={<ProductCatlog />} />
-        <Route path="/shop/details/:productId" element={<ProductDetail />} />
-        <Route path="/profile" element={<UserProfile />} />
+
+        <Route
+          path="/shop/details/:productId"
+          element={
+            <UserRouter>
+              <ProductDetail />
+            </UserRouter>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <UserRouter>
+              <UserProfile />
+            </UserRouter>
+          }
+        />
         <Route path="/loading" element={<Loading />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/address" element={<Address />} />
-        <Route path="/order/:orderId" element={<OrderSummary />} />
+        <Route
+          path="/cart"
+          element={
+            <UserRouter>
+              <Cart />
+            </UserRouter>
+          }
+        />
+        <Route
+          path="/address"
+          element={
+            <UserRouter>
+              <Address />
+            </UserRouter>
+          }
+        />
+        <Route
+          path="/order/:orderId"
+          element={
+            <UserRouter>
+              <OrderSummary />
+            </UserRouter>
+          }
+        />
         {/*protected routed on for amin*/}
         <Route path="admin" element={<AdminRoute />}>
           <Route path="add-product" element={<ProductListing />} />
